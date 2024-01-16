@@ -1,0 +1,3 @@
+[submodule "vendor/fruitcake/laravel-cors"]
+	path = vendor/fruitcake/laravel-cors
+	url = https://github.com/fruitcake/laravel-cors.git
