@@ -10,10 +10,9 @@
     path = php-getting-started
     url = https://github.com/wandy141/php-getting-started.git
 
-
 [submodule "vendor/league/flysystem-local"]
     path = vendor/league/flysystem-local
-    url = git@github.com:wandy141/flysystem-local.git
+    url = https://github.com:wandy141/flysystem-local.git
 
 
     [submodule "vendor/psr/clock"]
