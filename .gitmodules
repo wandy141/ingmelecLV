@@ -5,3 +5,7 @@
 [submodule "vendor/carbonphp/carbon-doctrine-types"]
     path = vendor/carbonphp/carbon-doctrine-types
     url = https://github.com/carbonphp/carbon-doctrine-types.git
+    
+[submodule "php-getting-started"]
+    path = php-getting-started
+    url = https://github.com/ejemplo/php-getting-started.git
