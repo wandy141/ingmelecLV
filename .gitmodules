@@ -9,3 +9,16 @@
 [submodule "php-getting-started"]
     path = php-getting-started
     url = https://github.com/wandy141/php-getting-started.git
+
+
+[submodule "vendor/league/flysystem-local"]
+    path = vendor/league/flysystem-local
+    url = https://github.com/wandy141/flysystem-local.git
+
+    [submodule "vendor/psr/clock"]
+    path = vendor/psr/clock
+    url = https://github.com/php-fig/clock.git
+
+[submodule "vendor/symfony/polyfill-php83"]
+    path = vendor/symfony/polyfill-php83
+    url = https://github.com/symfony/polyfill-php83.git
