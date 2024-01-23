@@ -1,0 +1,7 @@
+[submodule "vendor/fruitcake/laravel-cors"]
+	path = vendor/fruitcake/laravel-cors
+	url = https://github.com/fruitcake/laravel-cors.git
+	
+[submodule "vendor/carbonphp/carbon-doctrine-types"]
+    path = vendor/carbonphp/carbon-doctrine-types
+    url = https://github.com/carbonphp/carbon-doctrine-types.git
