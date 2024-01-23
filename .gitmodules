@@ -13,7 +13,8 @@
 
 [submodule "vendor/league/flysystem-local"]
     path = vendor/league/flysystem-local
-    url = https://github.com/wandy141/flysystem-local.git
+    url = git@github.com:wandy141/flysystem-local.git
+
 
     [submodule "vendor/psr/clock"]
     path = vendor/psr/clock
