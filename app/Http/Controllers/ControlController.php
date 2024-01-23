@@ -28,7 +28,22 @@ class ControlController extends Controller
     
             $vehiculo = Vehiculos::where('placa', $control->placa)->first();
 
+
+         
+
             if ($vehiculo) {
+   $totalGalonesMes = control::where('placa', $control->placa)
+            ->whereYear('fecha', now()->year)
+            ->whereMonth('fecha', now()->month)
+            ->sum('combustible');
+
+        // Verificar si el total de galones supera los 80
+        if (($totalGalonesMes + $control->combustible) >  $vehiculo->limite_combustible) {
+            return response()->json(['message' => 'exGL','resultado' => false,'galones' => $totalGalonesMes]);
+
+        }else {
+        }
+
                 $nuevoControl->ficha_vehiculo = $vehiculo->ficha; 
             } 
 
@@ -41,6 +56,7 @@ class ControlController extends Controller
             $nuevoControl->combustible = $control->combustible;
             $nuevoControl->precio_combustible = $control->precio_combustible;
             $nuevoControl->precio_galon = $control->precio_galon;
+            $nuevoControl->valet = $control->valet;
             $nuevoControl->kilometraje = $control->kilometraje;
             $nuevoControl->kilometraje_act = $control->kilometraje_act;
             $nuevoControl->kilometraje_pro = $control->kilometraje_pro;
@@ -90,10 +106,8 @@ class ControlController extends Controller
 
                 $registroAnterior->update(['kilometraje_rec' => $diferenciaKilometros, 'estado' => 1 ]);
                 $registroAnterior->update([ 'diferencia_km' => $registroAnterior->kilometraje_pro - $registroAnterior->kilometraje_rec]); 
-                return response()->json(['message' => ' correctamente','resultado' => $resultado]);
-            } else {
-                return response()->json(['message' => 'No hay registros anteriores para calcular la diferencia de kilómetros']);
-            }
+                return response()->json(['message' => 'correctamente','resultado' => $resultado]);
+            } 
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error al actualizar la diferencia de kilómetros', 'error' => $e->getMessage()], 500);
         }
@@ -109,7 +123,18 @@ public function vehiculoId(Request $datai)
 
     $consulta = Vehiculos::where('placa', $vehiculo)
     ->where('estado', 1)
-    ->first();    
+    ->first(); 
+    
+    if ($consulta) {
+        // Calcular el consumo_mes
+        $totalGalonesMes = control::where('placa', $consulta->placa)
+            ->whereYear('fecha', now()->year)
+            ->whereMonth('fecha', now()->month)
+            ->sum('combustible');
+
+        // Agregar el nuevo campo al resultado
+        $consulta->consumo_mes = $totalGalonesMes;
+    }
     return response()->json($consulta);
 }
 
@@ -119,6 +144,17 @@ public function vehiculoFi(Request $datai)
     $vehiculo = $data->ficha;
     
     $consulta = Vehiculos::where('ficha', $vehiculo)->where('estado',1)->first() ; 
+        
+    if ($consulta) {
+        // Calcular el consumo_mes
+        $totalGalonesMes = control::where('placa', $consulta->placa)
+            ->whereYear('fecha', now()->year)
+            ->whereMonth('fecha', now()->month)
+            ->sum('combustible');
+
+        // Agregar el nuevo campo al resultado
+        $consulta->consumo_mes = $totalGalonesMes;
+    }
     
     return response()->json($consulta);
     
@@ -131,16 +167,40 @@ public function vehiculoPlaca(Request $datai)
     $data=(object) $datai;
     $vehiculo = $data->placa;
 
-    $consulta = Vehiculos::where('placa', $vehiculo)->first();    
+    $consulta = Vehiculos::where('placa', $vehiculo)->first();   
+    
+    if ($consulta) {
+        // Calcular el consumo_mes
+        $totalGalonesMes = control::where('placa', $consulta->placa)
+            ->whereYear('fecha', now()->year)
+            ->whereMonth('fecha', now()->month)
+            ->sum('combustible');
+
+        // Agregar el nuevo campo al resultado
+        $consulta->consumo_mes = $totalGalonesMes;
+    }
+
     return response()->json($consulta);
 }
 
 public function vehiculoFicha(Request $datai)
 {
+
     $data = (object) $datai;
     $vehiculo = $data->ficha;
     
-    $consulta = Vehiculos::where('ficha', $vehiculo)->first() ; 
+    $consulta = Vehiculos::where('ficha', $vehiculo)->first(); 
+
+    if ($consulta) {
+        // Calcular el consumo_mes
+        $totalGalonesMes = control::where('placa', $consulta->placa)
+            ->whereYear('fecha', now()->year)
+            ->whereMonth('fecha', now()->month)
+            ->sum('combustible');
+
+        // Agregar el nuevo campo al resultado
+        $consulta->consumo_mes = $totalGalonesMes;
+    }
     
     return response()->json($consulta);
     

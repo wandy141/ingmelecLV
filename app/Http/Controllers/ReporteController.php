@@ -153,9 +153,14 @@ $fechaFinFormateada = $fechaFin->format('d/m/Y');
         
         $consulta = control::where(function($query) use ($placa) {
             $query->where('placa', $placa)
-                ->orWhere('ficha_vehiculo', $placa);
+                ->orWhere('ficha_vehiculo', $placa)
+                ->orWhere('valet', (int)$placa)
+                        
+                
+                ;
          })
-        ->where('estado', $estado)
+    ->where('estado', $estado)
+        
         ->orderBy('combustible', 'desc');
     
         if ($fechaInicio !== null && $fechaFin !== null) {
@@ -179,33 +184,72 @@ $fechaFinFormateada = $fechaFin->format('d/m/Y');
 
 
 
+    public function filtrarPlaca(Request $request) {
+
+      
 
 
-   public function filtrarPlaca(Request $request)   {
-   
+        $placa = $request->input('placa');
+        $estado = $request->input('estado');
+        $fechaInicio = Carbon::parse($request->input('fechaInicio'));
+        $fechaFin = Carbon::parse($request->input('fechaFin'));
+        
+        
+        $consulta = control::where(function($query) use ($placa) {
+            $query->where('placa', $placa)
+                ->orWhere('ficha_vehiculo', $placa)
+                ->orWhere('valet', (int)$placa)
+                        
+                
+                ;
+         })
+        ->orderBy('combustible', 'desc');
     
-    $placa = $request->input('placa');
-    $dias_anteriores = $request->input('dias_anteriores');
-    $estado = $request->input('estado');
+        if ($fechaInicio !== null && $fechaFin !== null) {
+            $fechaInicio = Carbon::parse($fechaInicio);
+            $fechaFin = Carbon::parse($fechaFin);
     
-    $consulta = control::where(function($query) use ($placa) {
-        $query->where('placa', $placa)
-          ->orWhere('ficha_vehiculo', $placa);
-     })
-    ->where('estado', $estado)
-    ->orderBy('combustible', 'desc');
-
-    if ($dias_anteriores !== null) {
-        $fechaLimite = now()->subDays($dias_anteriores);
-        $consulta->whereDate('fecha', '>=', $fechaLimite);
+            $consulta->where(function ($query) use ($fechaInicio, $fechaFin) {
+                $query->whereDate('fecha', '>=', $fechaInicio)
+                    ->whereDate('fecha', '<=', $fechaFin);
+            });
+        }
+    
+        $resultado = $consulta->get();
+        
+        return response()->json($resultado);
     }
 
-$resultado = $consulta->get();
+//    public function filtrarPlaca(Request $request)   {
+   
     
-    return response()->json($resultado);
+//     $placa = $request->input('placa');
+//     $dias_anteriores = $request->input('dias_anteriores');
+//     $estado = $request->input('estado');
+    
+//     $consulta = control::where(function($query) use ($placa) {
+//         $query->where('placa', $placa)
+//           ->orWhere('ficha_vehiculo', $placa)
+//           ->orWhere(function($query) use ($placa) {
+//             $query->where('valet', (int)$placa)
+//                   ->orWhere('valet', $placa);
+//         });
+
+//      })
+//     ->where('estado', $estado)
+//     ->orderBy('combustible', 'desc');
+
+//     if ($dias_anteriores !== null) {
+//         $fechaLimite = now()->subDays($dias_anteriores);
+//         $consulta->whereDate('fecha', '>=', $fechaLimite);
+//     }
+
+// $resultado = $consulta->get();
+    
+//     return response()->json($resultado);
     
     
- }
+//  }
 
 
 
