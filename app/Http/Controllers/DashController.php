@@ -113,6 +113,7 @@ public function insertarVehiculo(Request $request) {
     $objVehiculo->seguro = $vehiculoData['seguro'];
     $objVehiculo->polisa = $vehiculoData['polisa'];
     $objVehiculo->estado = $vehiculoData['estado'];
+    $objVehiculo->limite_combustible = $vehiculoData['limite_combustible'];
 
     // Guarda el vehículo
     $resultado = $objVehiculo->save();

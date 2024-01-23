@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitac7cd2c8084b91265ee710eb4216ad9c
+class ComposerStaticInit20d93823dfc3e25786f03a5d6eb7747e
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -459,8 +459,8 @@ class ComposerStaticInitac7cd2c8084b91265ee710eb4216ad9c
         ),
         'Fruitcake\\Cors\\' => 
         array (
-            0 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
-            1 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            1 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
         ),
         'Faker\\' => 
         array (
@@ -6033,9 +6033,9 @@ class ComposerStaticInitac7cd2c8084b91265ee710eb4216ad9c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitac7cd2c8084b91265ee710eb4216ad9c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitac7cd2c8084b91265ee710eb4216ad9c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitac7cd2c8084b91265ee710eb4216ad9c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit20d93823dfc3e25786f03a5d6eb7747e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit20d93823dfc3e25786f03a5d6eb7747e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit20d93823dfc3e25786f03a5d6eb7747e::$classMap;
 
         }, null, ClassLoader::class);
     }
